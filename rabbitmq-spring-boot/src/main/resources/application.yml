@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: rabbitmq-spring-boot
+
+#??RabbitMQ?????
+  rabbitmq:
+    #amqp://username:password@Ip:port/virtual-host
+    addresses: amqp://edison:edison@8.156.77.78:5672/my_app_vhost
+
+
