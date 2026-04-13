@@ -14,8 +14,11 @@ public class ProducerController {
 
     @RequestMapping("/work")
     public String work() {
-        // 使用内置交换机, RoutingKey和队列名称一致
-        rabbitTemplate.convertAndSend("", Constants.WORK_QUEUE, "hello spring amqp: work...");
+        for (int i = 0; i < 10; i ++)
+        {
+            // 使用内置交换机, RoutingKey和队列名称一致
+            rabbitTemplate.convertAndSend("", Constants.WORK_QUEUE, "hello spring amqp: work...");
+        }
         return "发送成功";
     }
 }
