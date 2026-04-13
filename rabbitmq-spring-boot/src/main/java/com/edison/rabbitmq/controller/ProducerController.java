@@ -21,4 +21,12 @@ public class ProducerController {
         }
         return "发送成功";
     }
+
+    @RequestMapping("/fanout")
+    public String fanout() {
+        // routingKey为空, 表示所有队列都可以收到消息
+        rabbitTemplate.convertAndSend(Constants.FANOUT_EXCHANGE, "", "hello spring amqp: fanout...");
+        return "发送成功";
+    }
 }
+
