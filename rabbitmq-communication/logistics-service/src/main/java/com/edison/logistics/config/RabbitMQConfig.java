@@ -1,21 +1,14 @@
-package com.edison.order.config;
+package com.edison.logistics.config;
 
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import org.springframework.amqp.support.converter.MessageConverter;
-import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
-
 @Configuration
 public class RabbitMQConfig {
-    @Bean("orderQueue")
-    public Queue orderQueue() {
-        return QueueBuilder.durable("order.create").build();
-    }
 
     @Bean
     public MessageConverter messageConverter() {
@@ -29,4 +22,3 @@ public class RabbitMQConfig {
         return rabbitTemplate;
     }
 }
-
