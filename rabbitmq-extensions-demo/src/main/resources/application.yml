@@ -9,3 +9,4 @@ spring:
       simple:
         #acknowledge-mode: none # 消息接收确认（自动确认）
         #acknowledge-mode: auto
+        acknowledge-mode: manual
