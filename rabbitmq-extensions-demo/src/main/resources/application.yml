@@ -2,9 +2,10 @@ spring:
   application:
   name: rabbitmq-extensions-demo
 
-#??rabbitmq?????
+  #配置rabbitmq的基本信息
   rabbitmq:
     addresses: amqp://edison:edison@8.156.77.78:5672/extension
     listener:
       simple:
-        acknowledge-mode: none # ????????????
+        #acknowledge-mode: none # 消息接收确认（自动确认）
+        #acknowledge-mode: auto

@@ -19,7 +19,7 @@ public class AckListener {
 
         // 进行业务逻辑处理（模拟即可）
         System.out.println("正在开始进行业务逻辑处理...");
-        int num = 10 / 0;
+        //int num = 10 / 0;
         System.out.println("处理完成");
     }
 }
