@@ -27,9 +27,15 @@ public class RabbitMQConfig {
 
     // 持久化
     // 非持久化的队列
+    /**
     @Bean("presQueue")
     public Queue presQueue() {
         return QueueBuilder.nonDurable(Constants.PRES_QUEUE).build();
+    }*/
+    // 持久化的队列
+    @Bean("presQueue")
+    public Queue presQueue() {
+        return QueueBuilder.durable(Constants.PRES_QUEUE).build();
     }
 
     // 非持久化的交换机
