@@ -25,7 +25,13 @@ public class ProducerController {
     @RequestMapping("/pres")
     public String pres() {
         Message message = new Message("Presistent test...".getBytes(), new MessageProperties());
-        message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.NON_PERSISTENT);
+
+        // 消息非持久化
+        //message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.NON_PERSISTENT);
+
+        // 消息持久化
+        message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+        System.out.println(message);
         rabbitTemplate.convertAndSend(Constants.PRES_EXCHANGE, "pres", message);
         return "消息发送成功";
     }
