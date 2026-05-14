@@ -24,4 +24,23 @@ public class RabbitMQConfig {
     public Binding ackBinding(@Qualifier("directExchange") DirectExchange directExchange, @Qualifier("ackQueue") Queue queue) {
         return BindingBuilder.bind(queue).to(directExchange).with("ack");
     }
+
+    // 持久化
+    // 非持久化的队列
+    @Bean("presQueue")
+    public Queue presQueue() {
+        return QueueBuilder.nonDurable(Constants.PRES_QUEUE).build();
+    }
+
+    // 非持久化的交换机
+    @Bean("presExchange")
+    public DirectExchange presExchange() {
+        return ExchangeBuilder.directExchange(Constants.PRES_EXCHANGE).durable(false).build();
+    }
+
+    // 绑定
+    @Bean("presBinding")
+    public Binding presBinding(@Qualifier("presQueue") Queue queue, @Qualifier("presExchange") Exchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with("pres").noargs();
+    }
 }
