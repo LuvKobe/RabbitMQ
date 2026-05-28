@@ -67,18 +67,18 @@ public class ProducerController {
     @RequestMapping("/confirm")
     public String confirm() {
         CorrelationData correlationData = new CorrelationData("1");
+        confirmRabbitTemplate.convertAndSend(Constants.CONFIRM_EXCHANGE, "confirm", "consumer confirm mode test...", correlationData);
         // Constants.CONFIRM_EXCHANGE + "1" ---> 设置错误的交换机
         //confirmRabbitTemplate.convertAndSend(Constants.CONFIRM_EXCHANGE + "1", "confirm", "consumer confirm mode test...", correlationData);
-        confirmRabbitTemplate.convertAndSend(Constants.CONFIRM_EXCHANGE, "confirm", "consumer confirm mode test...", correlationData);
         return "消息发送成功";
     }
 
     @RequestMapping("/returns")
     public String returns() {
         CorrelationData correlationData = new CorrelationData("5");
+        //returnConfirmRabbitTemplate.convertAndSend(Constants.CONFIRM_EXCHANGE, "confirm", "message return test...", correlationData);
         // 绑定错误的key
         returnConfirmRabbitTemplate.convertAndSend(Constants.CONFIRM_EXCHANGE, "confirm111", "message return test...", correlationData);
-        //returnConfirmRabbitTemplate.convertAndSend(Constants.CONFIRM_EXCHANGE, "confirm", "message return test...", correlationData);
         return "消息发送成功";
     }
 }
