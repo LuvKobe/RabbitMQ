@@ -6,6 +6,7 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageDeliveryMode;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,10 @@ public class ProducerController {
     private RabbitTemplate rabbitTemplate;
 
     @Resource(name = "confirmRabbitTemplate")
-    private RabbitTemplate confirmRabbitTemplate;
+    private RabbitTemplate confirmRabbitTemplate; // confirm模式
+
+    @Resource(name = "returnConfirmRabbitTemplate")
+    private RabbitTemplate returnConfirmRabbitTemplate;
 
     @RequestMapping("/ack")
     public String ack() {
@@ -66,6 +70,15 @@ public class ProducerController {
         // Constants.CONFIRM_EXCHANGE + "1" ---> 设置错误的交换机
         //confirmRabbitTemplate.convertAndSend(Constants.CONFIRM_EXCHANGE + "1", "confirm", "consumer confirm mode test...", correlationData);
         confirmRabbitTemplate.convertAndSend(Constants.CONFIRM_EXCHANGE, "confirm", "consumer confirm mode test...", correlationData);
+        return "消息发送成功";
+    }
+
+    @RequestMapping("/returns")
+    public String returns() {
+        CorrelationData correlationData = new CorrelationData("5");
+        // 绑定错误的key
+        returnConfirmRabbitTemplate.convertAndSend(Constants.CONFIRM_EXCHANGE, "confirm111", "message return test...", correlationData);
+        //returnConfirmRabbitTemplate.convertAndSend(Constants.CONFIRM_EXCHANGE, "confirm", "message return test...", correlationData);
         return "消息发送成功";
     }
 }
