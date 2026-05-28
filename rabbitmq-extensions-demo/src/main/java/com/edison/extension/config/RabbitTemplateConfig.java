@@ -1,5 +1,6 @@
 package com.edison.extension.config;
 
+import jakarta.annotation.Resource;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -9,7 +10,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitTemplateConfig {
 
-    @Bean
+    @Bean("rabbitTemplate")
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        return rabbitTemplate;
+    }
+
+    @Bean("confirmRabbitTemplate")
     public RabbitTemplate confirmRabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         // 设置回调方法

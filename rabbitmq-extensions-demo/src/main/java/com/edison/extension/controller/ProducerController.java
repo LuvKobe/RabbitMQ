@@ -1,6 +1,7 @@
 package com.edison.extension.controller;
 
 import com.edison.extension.constant.Constants;
+import jakarta.annotation.Resource;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageDeliveryMode;
 import org.springframework.amqp.core.MessageProperties;
@@ -14,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProducerController {
 
-    @Autowired
+    @Resource(name = "rabbitTemplate")
     private RabbitTemplate rabbitTemplate;
 
-    @Autowired
+    @Resource(name = "confirmRabbitTemplate")
     private RabbitTemplate confirmRabbitTemplate;
 
     @RequestMapping("/ack")
@@ -62,7 +63,9 @@ public class ProducerController {
     @RequestMapping("/confirm")
     public String confirm() {
         CorrelationData correlationData = new CorrelationData("1");
-        confirmRabbitTemplate.convertAndSend(Constants.CONFIRM_EXCHANGE + "1", "confirm", "consumer confirm mode test...", correlationData);
+        // Constants.CONFIRM_EXCHANGE + "1" ---> 设置错误的交换机
+        //confirmRabbitTemplate.convertAndSend(Constants.CONFIRM_EXCHANGE + "1", "confirm", "consumer confirm mode test...", correlationData);
+        confirmRabbitTemplate.convertAndSend(Constants.CONFIRM_EXCHANGE, "confirm", "consumer confirm mode test...", correlationData);
         return "消息发送成功";
     }
 }
