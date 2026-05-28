@@ -8,4 +8,8 @@ public class Constants {
 
     public static final String PRES_QUEUE = "pref.queue";
     public static final String PRES_EXCHANGE = "pref.exchange";
+
+    // 发送方确认
+    public static final String CONFIRM_QUEUE = "confirm.queue";
+    public static final String CONFIRM_EXCHANGE = "confirm.exchange";
 }

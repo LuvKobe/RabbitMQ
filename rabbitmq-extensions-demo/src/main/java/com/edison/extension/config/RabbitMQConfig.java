@@ -49,4 +49,21 @@ public class RabbitMQConfig {
     public Binding presBinding(@Qualifier("presQueue") Queue queue, @Qualifier("presExchange") Exchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with("pres").noargs();
     }
+
+    // 发送方确认
+    // 声明队列
+    @Bean("confirmQueue")
+    public Queue confirmQueue() {
+        return QueueBuilder.durable(Constants.CONFIRM_QUEUE).build();
+    }
+    // 声明交换机
+    @Bean("confirmExchange")
+    public DirectExchange confirmExchange() {
+        return ExchangeBuilder.directExchange(Constants.CONFIRM_EXCHANGE).build();
+    }
+    // 声明绑定关系
+    @Bean("confirmBinding")
+    public Binding confirmBinding(@Qualifier("confirmQueue") Queue queue, @Qualifier("confirmExchange") Exchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with("confirm").noargs();
+    }
 }

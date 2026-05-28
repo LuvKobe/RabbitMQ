@@ -8,5 +8,6 @@ spring:
     listener:
       simple:
         #acknowledge-mode: none # 消息接收确认（自动确认）
-        #acknowledge-mode: auto
-        acknowledge-mode: manual
+        #acknowledge-mode: auto # 消息接收确认
+        acknowledge-mode: manual # 消息接收确认
+    publisher-confirm-type: correlated  # 消息发送确认
