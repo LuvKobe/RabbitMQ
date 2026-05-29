@@ -79,4 +79,10 @@ public class ProducerController {
         returnConfirmRabbitTemplate.convertAndSend(Constants.CONFIRM_EXCHANGE, "confirm111", "message return test...", correlationData);
         return "消息发送成功";
     }
+
+    @RequestMapping("/retry")
+    public String retry(){
+        rabbitTemplate.convertAndSend(Constants.RETRY_EXCHANGE, "retry", "retry test...");
+        return "消息发送成功";
+    }
 }
