@@ -16,4 +16,8 @@ public class Constants {
     // 重试机制
     public static final String RETRY_QUEUE =  "retry.queue";
     public static final String RETRY_EXCHANGE = "retry.exchange";
+
+    // TTL
+    public static final String TTL_QUEUE =  "ttl.queue";
+    public static final String TTL_EXCHANGE = "ttl.exchange";
 }

@@ -2,8 +2,10 @@ package com.edison.extension.controller;
 
 import com.edison.extension.constant.Constants;
 import jakarta.annotation.Resource;
+import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageDeliveryMode;
+import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -84,5 +86,16 @@ public class ProducerController {
     public String retry(){
         rabbitTemplate.convertAndSend(Constants.RETRY_EXCHANGE, "retry", "retry test...");
         return "消息发送成功";
+    }
+
+    @RequestMapping("/ttl")
+    public String ttl(){
+        String ttlTime = "10000"; // 10秒
+        MessagePostProcessor messagePostProcessor = message -> {
+            message.getMessageProperties().setExpiration(ttlTime);
+            return message;
+        };
+        rabbitTemplate.convertAndSend(Constants.TTL_EXCHANGE, "ttl", "ttl test...", messagePostProcessor);
+        return "消息发送成功！";
     }
 }

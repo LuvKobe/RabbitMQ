@@ -83,4 +83,21 @@ public class RabbitMQConfig {
     public Binding retryBinding(@Qualifier("retryQueue") Queue queue, @Qualifier("retryExchange") Exchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with("retry").noargs();
     }
+
+    // TTL
+    //1. 队列
+    @Bean("ttlQueue")
+    public Queue ttlQueue() {
+        return QueueBuilder.durable(Constants.TTL_QUEUE).build();
+    }
+    //2. 交换机
+    @Bean("ttlExchange")
+    public Exchange ttlExchange() {
+        return ExchangeBuilder.fanoutExchange(Constants.TTL_EXCHANGE).durable(true).build();
+    }
+    //3. 队列和交换机绑定
+    @Bean("ttlBinding")
+    public Binding ttlBinding(@Qualifier("ttlQueue") Queue queue, @Qualifier("ttlExchange") Exchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with("ttl").noargs();
+    }
 }
