@@ -13,8 +13,15 @@ public class RetryListener {
     public void ListenerQueue(Message message) throws Exception {
         long deliveryTag = message.getMessageProperties().getDeliveryTag();
         System.out.printf("接收到消息: %s, deliveryTag: %d \n", new String(message.getBody(),"UTF-8"), deliveryTag);
+//        //模拟处理失败
+//        int num = 3 / 0;
+//        System.out.println("业务处理完成");
         //模拟处理失败
-        int num = 3 / 0;
-        System.out.println("业务处理完成");
+        try {
+            int num = 3 / 0;
+            System.out.println("业务处理完成");
+        }catch (Exception e){
+            System.out.println("业务处理失败");
+        }
     }
 }
