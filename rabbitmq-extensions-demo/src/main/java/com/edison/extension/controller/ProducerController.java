@@ -98,4 +98,11 @@ public class ProducerController {
         rabbitTemplate.convertAndSend(Constants.TTL_EXCHANGE, "ttl", "ttl test...", messagePostProcessor);
         return "消息发送成功！";
     }
+
+    @RequestMapping("/ttl2")
+    public String ttl2() {
+        // 发送不带TTL的消息（队列级TTL会生效）
+        rabbitTemplate.convertAndSend(Constants.TTL_EXCHANGE, "ttl", "ttl test...");
+        return "发送成功！";
+    }
 }

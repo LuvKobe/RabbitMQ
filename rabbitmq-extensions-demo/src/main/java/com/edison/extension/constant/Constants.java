@@ -19,5 +19,6 @@ public class Constants {
 
     // TTL
     public static final String TTL_QUEUE =  "ttl.queue";
+    public static final String TTL_QUEUE2 = "ttl.queue2";
     public static final String TTL_EXCHANGE = "ttl.exchange";
 }

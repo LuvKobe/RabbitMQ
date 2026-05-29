@@ -84,7 +84,7 @@ public class RabbitMQConfig {
         return BindingBuilder.bind(queue).to(exchange).with("retry").noargs();
     }
 
-    // TTL
+    // 消息的TTL
     //1. 队列
     @Bean("ttlQueue")
     public Queue ttlQueue() {
@@ -98,6 +98,18 @@ public class RabbitMQConfig {
     //3. 队列和交换机绑定
     @Bean("ttlBinding")
     public Binding ttlBinding(@Qualifier("ttlQueue") Queue queue, @Qualifier("ttlExchange") Exchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with("ttl").noargs();
+    }
+
+    //设置队列TTL
+    @Bean("ttlQueue2")
+    public Queue ttlQueue2() {
+        //设置20秒过期
+        return QueueBuilder.durable(Constants.TTL_QUEUE2).ttl(20*1000).build();
+    }
+    //队列和交换机绑定
+    @Bean("ttlBinding2")
+    public Binding ttlBinding2(@Qualifier("ttlQueue2") Queue queue, @Qualifier("ttlExchange") Exchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with("ttl").noargs();
     }
 }
